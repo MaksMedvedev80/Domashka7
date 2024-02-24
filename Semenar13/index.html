@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Featured Items</title>
+    <style>
+        /* Стили для блока Featured Items */
+        .featured-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+            position: relative; /* Позиционируем, чтобы вложить кнопку "Добавить в корзину" */
+        }
+        .featured-item img {
+            max-width: 100%;
+            height: auto;
+        }
+        .add-to-cart {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .add-to-cart:hover {
+            background-color: #45a049;
+        }
+        #cart-items {
+            display: none; /* Изначально скрываем контейнер корзины */
+            margin-top: 20px;
+        }
+        .cart-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .cart-item p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="featured-items"></div>
+    <div id="cart-items"></div>
+
+    <script>
+        const products = [
+            {
+                "name": "ELLERY X M`O CAPSULE",
+                "image": "./images/1.jpg",
+                "price": "$52.00",
+                "description": "Description of ELLERY X M`O CAPSULE"
+            },
+            {
+                "name": "ELLERY X M`O CAPSULE",
+                "image": "./images/2.jpg",
+                "price": "$52.00",
+                "description": "Description of ELLERY X M`O CAPSULE"
+            },
+            {
+                "name": "ELLERY X M`O CAPSULE",
+                "image": "./images/3.jpg",
+                "price": "$52.00",
+                "description": "Description of ELLERY X M`O CAPSULE"
+            },
+            {
+                "name": "ELLERY X M`O CAPSULE",
+                "image": "./images/4.jpg",
+                "price": "$52.00",
+                "description": "Description of ELLERY X M`O CAPSULE"
+            },
+            {
+                "name": "ELLERY X M`O CAPSULE",
+                "image": "./images/5.jpg",
+                "price": "$52.00",
+                "description": "Description of ELLERY X M`O CAPSULE"
+            },
+            {
+                "name": "ELLERY X M`O CAPSULE",
+                "image": "./images/6.jpg",
+                "price": "$52.00",
+                "description": "Description of ELLERY X M`O CAPSULE"
+            },
+        ];
+
+        const featuredItemsContainer = document.getElementById('featured-items');
+        const cartItemsContainer = document.getElementById('cart-items');
+
+        products.forEach(product => {
+            const itemDiv = document.createElement('div');
+            itemDiv.classList.add('featured-item');
+
+            const img = document.createElement('img');
+            img.src = product.image;
+            img.alt = product.name;
+
+            const name = document.createElement('h3');
+            name.textContent = product.name;
+
+            const price = document.createElement('p');
+            price.textContent = `Price: ${product.price}`;
+
+            const description = document.createElement('p');
+            description.textContent = product.description;
+
+            const addToCartButton = document.createElement('button');
+            addToCartButton.textContent = 'Add to Cart';
+            addToCartButton.classList.add('add-to-cart');
+            addToCartButton.addEventListener('click', () => {
+                addToCart(product);
+            });
+
+            itemDiv.appendChild(img);
+            itemDiv.appendChild(name);
+            itemDiv.appendChild(price);
+            itemDiv.appendChild(description);
+            itemDiv.appendChild(addToCartButton);
+
+            featuredItemsContainer.appendChild(itemDiv);
+        });
+
+        const addToCart = (product) => {
+            const cartItemDiv = document.createElement('div');
+            cartItemDiv.classList.add('cart-item');
+
+            const cartItemName = document.createElement('p');
+            cartItemName.textContent = `Name: ${product.name}`;
+
+            const removeFromCartButton = document.createElement('button');
+            removeFromCartButton.textContent = '❌';
+            removeFromCartButton.addEventListener('click', () => {
+                cartItemDiv.remove();
+                if (cartItemsContainer.children.length === 0) {
+                    cartItemsContainer.style.display = 'none';
+                }
+            });
+
+            cartItemDiv.appendChild(cartItemName);
+            cartItemDiv.appendChild(removeFromCartButton);
+
+            cartItemsContainer.appendChild(cartItemDiv);
+            cartItemsContainer.style.display = 'block';
+        };
+    </script>
+</body>
+</html>
